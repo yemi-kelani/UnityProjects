@@ -1,0 +1,37 @@
+*** BACKGROUND ***
+This is a Fixed Shooter, Space Invaders game.
+
+*** OBJECTS ON SCREEN ***:
+There are green enemies on screen that gradually move across the screen 
+(from left to right and vice versa) and downward.
+If they advance past a certain point on the screen you will lose the game.
+You will lose all your points.
+
+There is a red spaceship that follows the player on the X-Axis. It
+ocassionally fires missiles at the player. If a missile hits the player, 
+the game will end and reset. You will lose all your points. 
+If you destroy the enemy, you will win the game and the game will reset 
+while retaining your score.
+
+*** CONTROLS *** :
+Keys: Left Arrow, A - Move player ship left
+Keys: Right Arrow, D - Move player ship right
+Keys: Up Arrow, SpaceBar - Fire missile at enemies (intentionally on cooldown)
+
+*** SCORE ***
+The score is displayed in the lower left corner of the screen.
+It will increase with each enemy destroyed and reset if you lose a game.
+
+*** GAME END ***
+The game resets on win/lose. 
+
+Lose if enemies advance too far down the screen or you are hit by a missile.
+You will lose all your points.
+
+Win if you destroy the red enemy ship. You will retain your score.
+
+
+
+ 
+
+

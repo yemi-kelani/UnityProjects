@@ -1,0 +1,117 @@
+11/13/2021 - 3:28 pm - Starting 
+
+I'm going to create a more difficult version of Snake. Snake has several core components. 
+You control the direction of a snake that moves around on the screen. If it runs out of 
+the screen bounds or into itself the player loses. Otherwise, if the player eats an item on 
+screen it grows in size.
+
+I will give the Snake an ability to Speed up when pressing the Space Bar. I will also create 
+obstacles that decrease the players score if hit.
+
+I'll start by finding a circle sprite for the snake and implement movement. Then
+I will implement screen boundry detection. Next I will find a food sprite 
+(maybe an apple) and implement collision detection with the food.
+
+
+11/13/2021 - 4:49 pm - Movement Bug Fix
+
+I just finished implementing movement. I forgot to disable the gravity scale on the snake
+rigidbody2D and that was giving me some issues. I switch it from dynamic to kinematic.
+I will now implement boundry detection and reset the game accordingly.
+
+11/13/2021 - 5:26 pm - Encountered Weird Bug in Detecting Bottom of the Screen
+I hardcoded a solution that uses a translation of the top coords of the screen but I'm not 
+confident if this will work on different systems. I'll have to keep this in mind.
+
+Update 5:45 pm: The issue was getting proper camera coordinates. This has been fixed.
+
+11/13/2021 - 5:29 pm - Implementing Food
+
+I found a food sprite. I'm going to create a prefab and an empty spawning gameobject.
+When every the spawner has less than 1 child it will spawn an apple. The apple will destroy itself
+and increase the score on constact. I'll instantiate a new apple on on screen in a free location.
+
+I also want to create a new snake segment on contact.
+
+The naive solution would be find a random point on screen and then to check all the objects 
+on screen to see if they fall within a certain distance of that point. I'm going to research
+and see if there are any better methods for this.
+
+11/13/2021 - 8:37 pm - Update
+
+I didn't do any research. I watched a couple episodes of anime and called it quits. I'll be back
+tomorrow. 
+
+11/14/2021 - 3:00pm Completely Revamping Movement
+
+They say 15 hours of debugging can save you 15 minutes of planning. I having too many issues with
+the movement of the snake to keep going. When the snake eats, the new segments aren't ending up
+in the right places. I tried to make the game take steps by using the following code:
+// set time to move items on screen
+    private float moveTime = 0.1f;
+    private float timeSinceMove = 0.0f;
+
+if (timeSinceMove >= moveTime) {
+   //code to move snake
+   timeSinceMove = 0.0f;
+}
+
+This didn't work...
+Also my orginal solution for updating the snake segments wasn't behaving the way I wanted it too.
+My code:
+
+Vector3 prevSegmentPosition = transform.position;
+//then move head
+foreach (Snake segment in segments)
+{
+   Vector3 temp = segment.transform.position;
+   segment.transform.position = prevSegmentPosition;
+   prevSegmentPosition = temp;
+}
+
+After some online research I've found a better method; Move the snake in relation to a grid. I guess 
+I forgot that thats how the game worked before. I can do this by rounding the x and y coordinates of 
+each segment.
+
+Also I ended up changing Change the position of the segments in reverse order and then moving the head 
+on each fixed update. Its the same idea as my other method but in reverse.
+
+11/14/2021 - 4:10pm Okay but forreal this time
+
+This previous solution didn't fix my problem but I think I actually found the source of my problem!
+It was in instantiating the child objects.
+
+The old way:
+Snake newSeg = Instantiate(snakePrefab, lastSegPosition, Quaternion.identity, gameObject.transform);
+       
+The new way:     
+Snake newSeg = Instantiate(snakePrefab);
+newSeg.transform.position = lastSegPosition;
+
+So whats the big deal? I think the old way updated the position of the child relative to the head of the snake
+being its parent. When the head moved, so did all the children to the same exact spot. 
+At least, thats what I think.
+
+11/14/2021 - 4:45 pm Other Features
+
+I'm going to implement sound and score changes when the snake and apple contact. Then I will create an
+obstacle spawner to spawn spikes at the top of the screen. They explode on collision with the apple or 
+snake and descrease the player score.
+
+
+11/14/2021 - 5:27 pm Player Action
+
+Lastly I will implement an action the player can take to speed up. If the press the space bar they
+can speed up shortly to avoid obstacles.
+
+
+After Action:
+
+I orignally was just interested in making the game snake as it is a very fun game I used to play
+when I was younger. Near the end, my goals ended up being to create something I found challenging but
+stil fun. I learned a lot more about unity this time around as I felt comfortable taking risks in 
+implementing certain features. I was able to produce a working game. There was a moment when I finished 
+the game and wanted to add a 3 life system, but it ended up not working the way I wanted to and I don't have
+enough time to dedicate to debugging it so I scrapped the idea. I wish I'd reviewed the requirements more closely 
+before starting but you know what they say, 15 hours of work saves you 15 minutes of planning. I learned more about
+how Unity worked in this process and am excited to try out unreal engine 4 next.

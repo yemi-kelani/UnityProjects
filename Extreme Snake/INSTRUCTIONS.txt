@@ -1,0 +1,43 @@
+*** BACKGROUND ***
+This is recreation of the classic game SNAKE but with more features
+
+*** IMPORTANT NOTES ***
+There are three objects that can interact with eachother:
+Apple with SpikeBomb
+Apple with Snake
+Snake with Spike Bomb
+
+
+
+*** OBJECTS ON SCREEN ***:
+There is a Score displayed in the lower left corner
+There is a green snake that constantly moves
+There are at two spike objects falling from top of the screen to the bottom
+There is a red apple somewhere on screen
+
+*** CONTROLS *** : (Two main actions... move and speed up)
+Keys: Left Arrow, A - change direction left
+Keys: Right Arrow, D - change directionright
+Keys: Up Arrow, W - change direction up
+Keys: Down Arrow, S - change direction down
+
+Keys: SpaceBar - Speed Up to avoid Obstacles
+
+*** SCORE ***
+The score is displayed in the lower left corner of the screen
+It will increase with each apple eaten decrease with each obstacle you run into
+
+*** GAME END ***
+The game resets on win/lose
+
+Lose the snake hits the boundries of the screen or if it runs into itself
+You will lose all your points
+
+Win collect 15 apples
+Try to get a perfect score
+
+
+
+ 
+
+
